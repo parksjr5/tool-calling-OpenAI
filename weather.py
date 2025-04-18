@@ -15,7 +15,7 @@ def get_weather(lat="42.7336", long="-84.5539", days=5):
     data = {
         "location": f"{lat}, {long}",
         "fields": ['temperature', "humidityAvg"],
-        "units": "metric",
+        "units": "imperial",
         "timesteps" : ["1d"],
         "startTime" : "now",
         "endTime" : f"nowPlus{days}d"
