@@ -1,14 +1,25 @@
 import requests
 from creds import credentials
 
-def get_weather(lat="42.7336", long="-84.5539"):
+def get_weather(lat="42.7336", long="-84.5539", days=5):
     weather_api = credentials['weather_api']
 
-    url = f"https://api.tomorrow.io/v4/weather/realtime?location={lat},{long}&apikey={weather_api}"
+    url = f"https://api.tomorrow.io/v4/timelines?apikey={weather_api}"
 
     headers = {
-        "accept": "application/json"
+        "accept": "application/json",
+        "accept-encoding": "deflate, gzip, br",
+        "content-type": "application/json"
     }
 
-    response = requests.get(url, headers=headers)
+    data = {
+        "location": f"{lat}, {long}",
+        "fields": ['temperature', "humidityAvg"],
+        "units": "metric",
+        "timesteps" : ["1d"],
+        "startTime" : "now",
+        "endTime" : f"nowPlus{days}d"
+    }
+
+    response = requests.post(url, headers=headers, json=data)
     return response
