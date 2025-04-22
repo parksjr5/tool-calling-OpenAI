@@ -11,6 +11,16 @@ cronofy = pycronofy.Client(access_token=token)
 ### Get Dates ###
 
 def get_upcoming_events(cal_id=creds.credentials['apple_cal_id_home'], in_future=5):
+    """Collects days and times of when busy and returns them in a list of JSONs
+
+    :param cal_id: id of calendar from cronofy
+    :type cal_id: string
+    :param in_future: days in future, max of 5 due to weather forecast
+    :type in_future: int
+
+    :return events: list containing a JSON of event start, end, and busy
+    :rtype: list of JSONs
+    """
     # timezone id
     tzid = 'US/Eastern'
     # set local time
@@ -19,5 +29,9 @@ def get_upcoming_events(cal_id=creds.credentials['apple_cal_id_home'], in_future
     from_date = datetime.datetime.now()
     free_busy_blocks = cronofy.read_free_busy(calendar_ids=cal_id,from_date=from_date,to_date=to_date)
 
+    events = []
     for block in free_busy_blocks:
-        print(block)
+        block.pop('calendar_id', None)
+        events.append(block)
+
+    return events
