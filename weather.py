@@ -22,5 +22,9 @@ def get_weather(lat=42.7336, long=-84.5539, days=5):
     }
 
     response = requests.post(url, headers=headers, json=data)
+    output = response.json()
+    for i in range(len(output['data']['timelines'][0]['intervals'])):
+        for k,v in output['data']['timelines'][0]['intervals'][i]['values'].items():
+            output['data']['timelines'][0]['intervals'][i]['values'][k] = str(v)
     print(f"Lat: {lat}, Long: {long}")
-    return response.json()['data']['timelines']
+    return output['data']['timelines']
