@@ -40,8 +40,8 @@ def get_upcoming_events(cal_id=creds.credentials['apple_cal_id_home'], in_future
 def write_event(start_time, length_of_meeting):
     # Example timezone id
     timezone_id = 'US/Eastern'
-
-    event_id = 'example-%s' % uuid.uuid4(),
+    start_time = datetime.datetime.strptime(start_time, "%Y-%m-%dT%H:%M:%S")
+    event_id = 'example-%s' % uuid.uuid4()
 
     event = {
         'event_id': event_id,
