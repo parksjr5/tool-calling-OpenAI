@@ -3,6 +3,7 @@ import json
 import requests
 import pycronofy
 import datetime
+import uuid
 
 ### Authorization ###
 token = creds.credentials['cronofy_access_token']
@@ -35,3 +36,22 @@ def get_upcoming_events(cal_id=creds.credentials['apple_cal_id_home'], in_future
         events.append(block)
 
     return events
+
+def write_event(start_time, length_of_meeting):
+    # Example timezone id
+    timezone_id = 'US/Eastern'
+
+    event_id = 'example-%s' % uuid.uuid4(),
+
+    event = {
+        'event_id': event_id,
+        'summary': 'Test Event', # The event title
+        'description': 'Discuss proactive strategies for a reactive world.',
+        'start': start_time,
+        'end': (start_time + datetime.timedelta(hours=length_of_meeting)),
+        'location': {
+            'description': 'My Desk!',
+        },
+    }
+
+    cronofy.upsert_event(calendar_id=creds.credentials['apple_cal_id_home'], event=event)
