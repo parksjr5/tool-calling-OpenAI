@@ -1,4 +1,5 @@
-# Practice tool calling with OpenAI
+# Run Scheduler
+## *Practice tool calling with OpenAI*
 
 **Goal**: Develop agentic workflow to pull calendar events and forecasting weather to identify best time to run, and write back to a calendar as an event to block off running time.
 
