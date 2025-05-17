@@ -2,6 +2,17 @@ import requests
 from creds import credentials
 
 def get_weather(lat=42.7336, long=-84.5539, days=5):
+    """
+    Collects the weather from the last 5 days using tomorrow.io api
+    by using the longitude and latitude of the location.
+    
+    :param lat: latitude of location
+    :type lat: float
+    :param long: longitude of location
+    :type long: float
+    :return output['data']['timelines']: five days of weather at hourly cadence
+    :rtype: json
+    """
     weather_api = credentials['weather_api']
 
     url = f"https://api.tomorrow.io/v4/timelines?apikey={weather_api}"
